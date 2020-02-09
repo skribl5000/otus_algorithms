@@ -35,6 +35,37 @@ public class FactorArray<T> implements IArray<T> {
         return (T)array[index];
     }
 
+    @Override
+    public void insert(T item, int index){
+        if (index >= array.length){
+            throw new IllegalArgumentException("Index out of range");
+        }
+        if (size() == array.length)
+            resize();
+        for (int j = array.length - 1; j > index; j --){
+            array[j] = array[j-1];
+        }
+        array[index] = item;
+    }
+
+    @Override
+    public T remove(int index){
+        if (index >= array.length){
+            throw new IllegalArgumentException("Index out of range");
+        }
+        T removed_item = get(index);
+        Object[] newArray = new Object[array.length];
+        for (int j = 0; j < array.length - 1; j++) {
+            if (j < index)
+                newArray[j] = array[j];
+            else
+                newArray[j] = array[j+1];
+        }
+        array = newArray;
+        return removed_item;
+    }
+
+
     private void resize() {
         Object[] newArray = new Object[array.length + array.length * factor / 100];
         System.arraycopy(array, 0, newArray, 0, array.length);

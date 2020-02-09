@@ -1,5 +1,7 @@
 package model;
 
+import java.util.logging.ErrorManager;
+
 public class SingleArray<T> implements IArray<T> {
 
     private Object[] array;
@@ -23,6 +25,37 @@ public class SingleArray<T> implements IArray<T> {
     @SuppressWarnings("unchecked")
     public T get(int index) {
         return (T)array[index];
+    }
+
+    @Override
+    public void insert(T item, int index){
+        if (index > size()){
+            throw new IllegalArgumentException("Index out of range");
+        }
+        resize();
+        for (int j = array.length - 1; j > index; j --){
+            array[j] = array[j-1];
+        }
+        array[index] = item;
+    }
+
+    @Override
+    public T remove(int index){
+        if (index > size()){
+            throw new IllegalArgumentException("Index out of range");
+        }
+        Object[] newArray = new Object[size() - 1];
+        for (int j = 0; j < newArray.length; j ++){
+            if (j < index){
+                newArray[j] = array[j];
+            }
+            else{
+                newArray[j] = array[j+1];
+            }
+        }
+        T removed_item = get(index);
+        array = newArray;
+        return removed_item;
     }
 
     private void resize() {
