@@ -54,17 +54,27 @@ public class FactorArray<T> implements IArray<T> {
             throw new IllegalArgumentException("Index out of range");
         }
         T removed_item = get(index);
-        Object[] newArray = new Object[array.length];
-        for (int j = 0; j < array.length - 1; j++) {
-            if (j < index)
+        Object[] newArray = new Object[size()];
+        for (int j = 0; j < newArray.length; j++){
+            if(j < index){
                 newArray[j] = array[j];
-            else
+            }
+            else{
                 newArray[j] = array[j+1];
+            }
         }
         array = newArray;
+//        check_size(); // Нужно доделать
         return removed_item;
     }
 
+    private void check_size(){
+        if (size()/array.length - 1 == factor/100){
+            Object[] newArray = new Object[100/(100+factor) * size()];
+            System.arraycopy(array, 0, newArray, 0, 100/(100+factor) * size());
+            array = newArray;
+        }
+    }
 
     private void resize() {
         Object[] newArray = new Object[array.length + array.length * factor / 100];

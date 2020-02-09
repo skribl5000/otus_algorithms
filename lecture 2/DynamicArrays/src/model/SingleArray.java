@@ -44,16 +44,15 @@ public class SingleArray<T> implements IArray<T> {
         if (index > size()){
             throw new IllegalArgumentException("Index out of range");
         }
+        T removed_item = get(index);
         Object[] newArray = new Object[size() - 1];
-        for (int j = 0; j < newArray.length; j ++){
-            if (j < index){
+        for (int j = 0; j < newArray.length; j ++) {
+            if (j < index) {
                 newArray[j] = array[j];
-            }
-            else{
-                newArray[j] = array[j+1];
+            } else {
+                newArray[j] = array[j + 1];
             }
         }
-        T removed_item = get(index);
         array = newArray;
         return removed_item;
     }
