@@ -1,4 +1,5 @@
-test_array = [10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,6,11,24,10,1,1,5,7,8,1,2,3,6]
+import timeit
+test_array = [10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,10,3,6,10,15,22,1,6,11,24,10,1,1,5,7,8,1,2,3,6,6,11,24,10,1,1,5,7,8,1,2,3,6]
 
 def buble_sort(arr):
     # O(n^2)
@@ -53,20 +54,59 @@ def insertion_sort(arr):
             counter += 1
             swaps += 1
         arr[j+1] = x
-    return f'Array: {arr} \nIterrations: {counter} \nSwaps: {swaps}'
+    # print(f'Array: {arr} \nIterrations: {counter} \nSwaps: {swaps}')
+    return arr
 
 def shell_sort(arr):
     # we will use insertion_sort because it works better for almost sorted arrays
     counter = 0
     swaps = 0
+
+    step = len(arr)//2
+    for i in range(step, 0 , -1):
+        temp = insertion_sort([arr[k] for k in range(0,len(arr),i)])
+        a = 0
+        for k in range(0,len(arr), i):
+            arr[k] = temp[a]
+            a+= 1
+            if isinstance(arr[k], str):
+                print(arr[k])
     return f'Array: {arr} \nIterrations: {counter} \nSwaps: {swaps}'
 
 
-print(buble_sort(test_array.copy()))
-print(selection_sort(test_array.copy()))
-print(insertion_sort(test_array.copy()))
-print('')
-# for almost done list insertion_sort sort works better than others
-print(buble_sort([1,2,10,4,5,6,7]))
-print(selection_sort([1,2,10,4,5,6,7]))
-print(insertion_sort([1,2,10,4,5,6,7]))
+
+# чет долгий shell вышел, взял код с wiki, все равно insert получется быстрее.
+def shellSort(array):
+	increment = len(array) // 2
+	while increment > 0:
+
+		for startPosition in range(increment):
+			gapInsertionSort(array, startPosition, increment)
+
+
+		increment //= 2
+
+def gapInsertionSort(array, low, gap):
+
+	for i in range(low + gap, len(array), gap):
+		currentvalue = array[i]
+		position = i
+
+		while position >= gap and array[position - gap] > currentvalue:
+			array[position] = array[position - gap]
+			position = position - gap
+
+		array[position] = currentvalue
+
+
+
+print('Buble:')
+print(timeit.timeit("buble_sort(test_array)", setup="from __main__ import buble_sort, test_array", number=1))
+print('Select:')
+print(timeit.timeit("selection_sort(test_array)", setup="from __main__ import selection_sort, test_array", number=1))
+print('Insert:')
+print(timeit.timeit("insertion_sort(test_array)", setup="from __main__ import insertion_sort, test_array", number=1))
+print('Shell:')
+print(timeit.timeit("shell_sort(test_array)", setup="from __main__ import shell_sort, test_array", number=1))
+print('Shell Wiki:')
+print(timeit.timeit("shellSort(test_array)", setup="from __main__ import shellSort, test_array", number=1))
